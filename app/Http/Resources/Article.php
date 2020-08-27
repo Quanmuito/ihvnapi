@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class Article extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -14,17 +15,21 @@ class Article extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
-
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'body' => $this->body
+            'data' => [
+                'id' => $this->id,
+                'title' => $this->title,
+                'body' => $this->body
+            ],
+            'Detail' => [
+                'Created at' => $this->created_at,
+                'Updated at' => $this->updated_at,
+            ],
         ];
     }
 
     /**
-     * Additionk information when sending data
+     * Addition information when sending data
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array

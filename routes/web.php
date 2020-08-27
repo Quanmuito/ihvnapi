@@ -22,4 +22,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/register', function () {
     return "Contact site creator to get an account";
-});
+})->name('register');
+
+// Route::get('/hero', 'HeroesController@shadow');
