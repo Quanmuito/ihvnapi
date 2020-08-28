@@ -19,5 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // List
-Route::get('articles', 'ArticleController@index');
+Route::get('articles', 'Article\ArticleController@index');
 Route::get('heroes/shadow', 'HeroesController@shadow');
+
+// API design
+Route::get('heroes/fivestar', 'Hero\FivestarController@index');
+Route::get('heroes/fivestar/{id}', 'Hero\FivestarController@show');

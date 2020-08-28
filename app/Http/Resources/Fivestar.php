@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Hero extends JsonResource
+class Fivestar extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,8 +17,9 @@ class Hero extends JsonResource
         return [
             'info' => [
                 'id' => $this->id,
+                'faction' => $this->faction,
                 'name' => $this->name,
-                'class' => $this->class
+                'class' => $this->class,
             ],
             'skill' => [
                 'skill1' => $this->skill1,
@@ -35,20 +36,25 @@ class Hero extends JsonResource
                 'cc' => $this->cc,
                 'heal' => $this->heal,
             ],
+            'avatar' => $this->avatar,
+            'img' => $this->img,
+            'user_id' => $this->user_id,
         ];
     }
 
-    // /**
-    //  * Addition information when sending data
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @return array
-    //  */
-    // public function with($request)
-    // {
-    //     return [
-    //         'version' => "1.0.0",
-    //         'author' => "me"
-    //     ];
-    // }
+    /**
+     * Addition information when sending single data
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function with($request)
+    {
+        return [
+            'more' => [
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at,
+            ]
+        ];
+    }
 }
