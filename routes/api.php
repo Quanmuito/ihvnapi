@@ -23,5 +23,5 @@ Route::get('articles', 'Article\ArticleController@index');
 Route::get('heroes/shadow', 'HeroesController@shadow');
 
 // API design
-Route::get('heroes/fivestar', 'Hero\FivestarController@index');
-Route::get('heroes/fivestar/{id}', 'Hero\FivestarController@show');
+Route::get('heroes/fivestar/shadow', 'Hero\FivestarController@shadow');
+// Route::get('heroes/fivestar/shadow/{id}', 'Hero\FivestarController@show');

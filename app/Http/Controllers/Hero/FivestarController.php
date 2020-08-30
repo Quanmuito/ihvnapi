@@ -15,7 +15,7 @@ class FivestarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function shadow()
     {
         $heroes = Fivestar::where('faction', 'shadow')->get();
 
@@ -23,18 +23,18 @@ class FivestarController extends Controller
         return FivestarResource::collection($heroes);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // Get 1 article
-        $hero = Fivestar::findOrFail($id);
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show($id)
+    // {
+    //     // Get 1 article
+    //     $hero = Fivestar::findOrFail($id);
 
-        // Return as a resource
-        return new FivestarResource($hero);
-    }
+    //     // Return as a resource
+    //     return new FivestarResource($hero);
+    // }
 }
