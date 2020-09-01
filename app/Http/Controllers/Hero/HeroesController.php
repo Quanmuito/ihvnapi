@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Model\Fivestar;
+use App\Model\Sixstar;
+use App\Model\Tenstar;
 use App\Http\Resources\Fivestar as FivestarResource;
 
-class FivestarsController extends Controller
+class HeroesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -53,9 +55,13 @@ class FivestarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($name)
     {
-        //
+        $hero_5 = Fivestar::where('name', $name)->get();
+        $hero_6 = Sixstar::where('name', $name)->get();
+        $hero_10 = Tenstar::where('name', $name)->get();
+        $heroes = [$hero_5, $hero_6, $hero_10];
+        return view('heroes.show')->with('heroes', $heroes);
     }
 
     /**

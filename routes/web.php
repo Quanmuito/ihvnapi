@@ -24,4 +24,4 @@ Route::get('/register', function () {
     return "Contact site creator to get an account";
 })->name('register');
 
-Route::resource('/hero/fivestar', 'Hero\FivestarsController');
+Route::resource('/heroes', 'Hero\HeroesController');
