@@ -20,7 +20,10 @@ class HeroesController extends Controller
     public function index()
     {
         // Get all heroes
-        $heroes = Fivestar::all();
+        $hero_5 = Fivestar::all();
+        $hero_6 = Sixstar::all();
+        $hero_10 = Tenstar::all();
+        $heroes = [$hero_5, $hero_6, $hero_10];
 
         // Return as resource
         // return FivestarResource::collection($heroes);
@@ -35,7 +38,7 @@ class HeroesController extends Controller
      */
     public function create()
     {
-        //
+        return view('heroes.create');
     }
 
     /**
@@ -72,7 +75,7 @@ class HeroesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('heroes.edit');
     }
 
     /**
