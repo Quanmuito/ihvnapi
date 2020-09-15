@@ -49,7 +49,12 @@ class HeroesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'img' => 'image|nullable|max:1999',
+            'avatar' => 'image|nullable|max:1999'
+        ]);
+
+        return "Created";
     }
 
     /**
