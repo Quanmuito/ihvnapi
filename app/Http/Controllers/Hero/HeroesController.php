@@ -158,9 +158,26 @@ class HeroesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($star, $name)
     {
-        return view('heroes.edit');
+        switch($star) {
+            case "5":
+                $hero = Fivestar::where('name', $name)->get();
+            break;
+            case "6":
+                $hero = Sixstar::where('name', $name)->get();
+            break;
+            case "10":
+                $hero = Tenstar::where('name', $name)->get();
+            break;            
+        }
+
+        // Check for correct user
+        if(strval(auth()->user()->id) !== $hero[0]->user_id){
+            return redirect('/heroes')->with('error', 'You are not allow to edit this page');
+        }
+        
+        return view('heroes.edit')->with('hero', $hero);
     }
 
     /**
