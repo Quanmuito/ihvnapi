@@ -50,11 +50,91 @@ class HeroesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'faction' => 'required',
+            'name' => 'required',
+            'class' => 'required',
+            'skill1' => 'required',
+            'skill2' => 'required',
+            'skill3' => 'required',
+            'skill4' => 'required',
+            'hp' => 'required',
+            'atk' => 'required',
+            'armor' => 'required',
+            'speed' => 'required',
+            'heal' => 'required',
             'img' => 'image|nullable|max:1999',
-            'avatar' => 'image|nullable|max:1999'
+            'avatar' => 'image|nullable|max:1999',
         ]);
 
-        return "Created";
+        //Handle Hero Image Upload
+        if($request->hasFile('img')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('img')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('img')->getClientOriginalExtension();
+            // Filename to store
+            $img_fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('img')->storeAs('public/hero_images', $img_fileNameToStore);
+		
+        } else {
+            $img_fileNameToStore = 'dummy_image.jpg';
+        }
+
+        //Handle Hero Avatar Upload
+        if($request->hasFile('avatar')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('avatar')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('avatar')->getClientOriginalExtension();
+            // Filename to store
+            $avatar_fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('avatar')->storeAs('public/avatar_images', $avatar_fileNameToStore);
+		
+        } else {
+            $avatar_fileNameToStore = 'dummy_avatar.jpg';
+        }
+
+        // Save to database
+
+        // Find whether 5 6 10 stars hero
+        switch($request->input('stars')) {
+            case 5:
+                $hero = new Fivestar;
+            break;
+            case 6:
+                $hero = new Sixstar;
+            break;
+            case 10:
+                $hero = new Tenstar;
+            break;
+        }
+
+        $hero->user_id = auth()->user()->id;
+        $hero->faction = $request->input('faction');
+        $hero->name = $request->input('name');
+        $hero->class = $request->input('class');
+        $hero->skill1 = $request->input('skill1');
+        $hero->skill2 = $request->input('skill2');
+        $hero->skill3 = $request->input('skill3');
+        $hero->skill4 = $request->input('skill4');
+        $hero->hp = $request->input('hp');
+        $hero->atk = $request->input('atk');
+        $hero->armor = $request->input('armor');
+        $hero->speed = $request->input('speed');
+        $hero->aoe = $request->input('aoe');
+        $hero->cc = $request->input('cc');
+        $hero->heal = $request->input('heal');
+        $hero->img = $img_fileNameToStore;
+        $hero->avatar = $avatar_fileNameToStore;
+        $hero->save();
+
+        return $hero;
     }
 
     /**

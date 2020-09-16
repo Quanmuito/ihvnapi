@@ -9,9 +9,10 @@
                 {{Form::label('stars', 'Stars')}}
                 {{
                     Form::select('stars', [
-                        '5 stars' => 5,
-                        '6 stars' => 6,
-                        '10 stars' => 10
+                        5 => '5 stars',
+                        6 => '6 stars',
+                        10 => '10 stars'
+
                     ], 
                     '5 stars')
                 }}
@@ -20,14 +21,14 @@
                 {{Form::label('faction', 'Faction')}}
                 {{
                     Form::select('faction', [
-                        'Shadow' => 'shadow',
-                        'Fortress' => 'fortress',
-                        'Albyss' => 'albyss',
-                        'Forest' => 'forest',
-                        'Light' => 'light',
-                        'Dark' => 'dark'
+                        'shadow' => 'Shadow',
+                        'fortress' => 'Fortress',
+                        'albyss' => 'Albyss',
+                        'forest' => 'Forest',
+                        'light' => 'Light',
+                        'dark' => 'Dark'
                     ], 
-                    'Shadow')
+                    'shadow')
                 }}
             </div>
             <div class="form-group">
@@ -71,8 +72,15 @@
                 {{Form::number('speed', 0)}}
             </div>
             <div class="form-group">
-                {{Form::label('aoe', 'Hero has AOE damage: ')}}
-                {{Form::checkbox('aoe', 'value', false)}}
+                {{Form::label('aoe', 'AOE damage')}}
+                {{
+                    Form::select('aoe', [
+                        'none' => 'None',
+                        'some' => '2-5 targets',
+                        'all' => 'All targets'
+                    ], 
+                    'None')
+                }}
             </div>
             <div class="form-group">
                 {{Form::label('cc', 'Crowd Controll Types')}}
@@ -82,12 +90,12 @@
                 {{Form::label('heal', 'Heal type')}}
                 {{
                     Form::select('heal', [
-                        'None' => 'None',
-                        'Self-heal' => 'Self-heal',
-                        'Heal others' => 'Heal others',
-                        'Both' => 'Both self-heal and heal others'
+                        'none' => 'None',
+                        'self' => 'Self-heal',
+                        'others' => 'Heal others',
+                        'both' => 'Both'
                     ], 
-                    'None')
+                    'none')
                 }}
             </div>
 
