@@ -26,5 +26,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/heroes', 'Hero\HeroesController');
 Route::get('/heroes/{star}/{name}/edit', 'Hero\HeroesController@edit');
-Route::put('/heroes/{star}/{name}', 'Hero\HeroesController@update');
-Route::patch('/heroes/{star}/{name}', 'Hero\HeroesController@update');
+Route::delete('/heroes/{star}/{name}', 'Hero\HeroesController@destroy');

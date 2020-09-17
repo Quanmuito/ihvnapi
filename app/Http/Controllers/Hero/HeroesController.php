@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Hero;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests;
 use App\Model\Fivestar;
 use App\Model\Sixstar;
@@ -12,6 +13,16 @@ use App\Http\Resources\Fivestar as FivestarResource;
 
 class HeroesController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,6 +39,26 @@ class HeroesController extends Controller
         // Return as resource
         // return FivestarResource::collection($heroes);
         return view('heroes.index')->with('heroes', $heroes);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($name)
+    {
+        $hero_5 = Fivestar::where('name', $name)->get();
+        $hero_6 = Sixstar::where('name', $name)->get();
+        $hero_10 = Tenstar::where('name', $name)->get();
+        $heroes = [$hero_5, $hero_6, $hero_10];
+
+        if(count($heroes) !== 0)
+        {
+            return redirect('/heroes')->with('error', "No hero data found");
+        }
+        return view('heroes.show')->with('heroes', $heroes);
     }
 
 
@@ -66,6 +97,19 @@ class HeroesController extends Controller
             'avatar' => 'image|nullable|max:1999',
         ]);
 
+        // Find whether 5 6 10 stars hero
+        switch($request->input('stars')) {
+            case 5:
+                $hero = new Fivestar;
+            break;
+            case 6:
+                $hero = new Sixstar;
+            break;
+            case 10:
+                $hero = new Tenstar;
+            break;
+        }
+
         //Handle Hero Image Upload
         if($request->hasFile('img')){
             // Get filename with the extension
@@ -97,23 +141,10 @@ class HeroesController extends Controller
             $path = $request->file('avatar')->storeAs('public/avatar_images', $avatar_fileNameToStore);
 		
         } else {
-            $avatar_fileNameToStore = 'dummy_avatar.jpg';
+            $avatar_fileNameToStore = 'dummy_avatar.png';
         }
 
         // Save to database
-
-        // Find whether 5 6 10 stars hero
-        switch($request->input('stars')) {
-            case 5:
-                $hero = new Fivestar;
-            break;
-            case 6:
-                $hero = new Sixstar;
-            break;
-            case 10:
-                $hero = new Tenstar;
-            break;
-        }
 
         $hero->user_id = auth()->user()->id;
         $hero->faction = $request->input('faction');
@@ -134,22 +165,7 @@ class HeroesController extends Controller
         $hero->avatar = $avatar_fileNameToStore;
         $hero->save();
 
-        return $hero;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($name)
-    {
-        $hero_5 = Fivestar::where('name', $name)->get();
-        $hero_6 = Sixstar::where('name', $name)->get();
-        $hero_10 = Tenstar::where('name', $name)->get();
-        $heroes = [$hero_5, $hero_6, $hero_10];
-        return view('heroes.show')->with('heroes', $heroes);
+        return redirect('/heroes')->with('success', 'Hero Data Created');
     }
 
     /**
@@ -162,22 +178,27 @@ class HeroesController extends Controller
     {
         switch($star) {
             case "5":
-                $hero = Fivestar::where('name', $name)->get();
+                $hero = Fivestar::where('name', $name)->get()[0];
             break;
             case "6":
-                $hero = Sixstar::where('name', $name)->get();
+                $hero = Sixstar::where('name', $name)->get()[0];
             break;
             case "10":
-                $hero = Tenstar::where('name', $name)->get();
+                $hero = Tenstar::where('name', $name)->get()[0];
             break;            
         }
 
         // Check for correct user
-        if(strval(auth()->user()->id) !== $hero[0]->user_id){
+        if(strval(auth()->user()->id) !== $hero->user_id){
             return redirect('/heroes')->with('error', 'You are not allow to edit this page');
         }
+
+        $data = array(
+            'star' => $star,
+            'hero' => $hero
+        );
         
-        return view('heroes.edit')->with('hero', $hero);
+        return view('heroes.edit')->with($data);
     }
 
     /**
@@ -187,9 +208,92 @@ class HeroesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $name)
     {
-        //
+        $this->validate($request, [
+            'faction' => 'required',
+            'name' => 'required',
+            'class' => 'required',
+            'skill1' => 'required',
+            'skill2' => 'required',
+            'skill3' => 'required',
+            'skill4' => 'required',
+            'hp' => 'required',
+            'atk' => 'required',
+            'armor' => 'required',
+            'speed' => 'required',
+            'heal' => 'required',
+            'img' => 'image|nullable|max:1999',
+            'avatar' => 'image|nullable|max:1999',
+        ]);
+
+        // Find whether 5 6 10 stars hero
+        switch($request->input('stars')) {
+            case "5":
+                $hero = Fivestar::where('name', $name)->get()[0];
+            break;
+            case "6":
+                $hero = Sixstar::where('name', $name)->get()[0];
+            break;
+            case "10":
+                $hero = Tenstar::where('name', $name)->get()[0];
+            break;            
+        }
+
+        //Handle Hero Image Upload
+        if($request->hasFile('img')){
+            //Delete the old image
+            Storage::delete('public/hero_images/'.$hero->img);
+            // Get filename with the extension
+            $filenameWithExt = $request->file('img')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('img')->getClientOriginalExtension();
+            // Filename to store
+            $img_fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('img')->storeAs('public/hero_images', $img_fileNameToStore);
+            $hero->img = $img_fileNameToStore;		
+        }
+
+        //Handle Hero Avatar Upload
+        if($request->hasFile('avatar')){
+            //Delete the old image
+            Storage::delete('public/avatar_images/'.$hero->avatar);
+            // Get filename with the extension
+            $filenameWithExt = $request->file('avatar')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('avatar')->getClientOriginalExtension();
+            // Filename to store
+            $avatar_fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('avatar')->storeAs('public/avatar_images', $avatar_fileNameToStore);
+            $hero->avatar = $avatar_fileNameToStore;
+        }
+
+        // Update hero data
+
+        $hero->user_id = auth()->user()->id;
+        $hero->faction = $request->input('faction');
+        $hero->name = $request->input('name');
+        $hero->class = $request->input('class');
+        $hero->skill1 = $request->input('skill1');
+        $hero->skill2 = $request->input('skill2');
+        $hero->skill3 = $request->input('skill3');
+        $hero->skill4 = $request->input('skill4');
+        $hero->hp = $request->input('hp');
+        $hero->atk = $request->input('atk');
+        $hero->armor = $request->input('armor');
+        $hero->speed = $request->input('speed');
+        $hero->aoe = $request->input('aoe');
+        $hero->cc = $request->input('cc');
+        $hero->heal = $request->input('heal');
+        $hero->save();
+
+        return redirect('/heroes')->with('success', 'Hero Data Updated');
     }
 
     /**
@@ -198,8 +302,41 @@ class HeroesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($star, $name)
     {
-        //
+        switch($star) {
+            case "5":
+                $hero = Fivestar::where('name', $name)->get()[0];
+            break;
+            case "6":
+                $hero = Sixstar::where('name', $name)->get()[0];
+            break;
+            case "10":
+                $hero = Tenstar::where('name', $name)->get()[0];
+            break;            
+        }
+
+        //Check if data exists before deleting
+        if (!isset($hero)){
+            return redirect('/heroes')->with('error', 'No Hero Data Found');
+        }
+
+        // Check for correct user
+        if(strval(auth()->user()->id) !== $hero->user_id){
+            return redirect('/heroes')->with('error', 'Unauthorized Page');
+        }
+
+        if($hero->hero_image != 'dummy_image.jpg'){
+            // Delete Image
+            Storage::delete('public/hero_images/'.$hero->img);
+        }
+
+        if($hero->hero_image != 'dummy_avatar.png'){
+            // Delete Image
+            Storage::delete('public/avatar_images/'.$hero->avatar);
+        }
+        
+        $hero->delete();
+        return redirect('/heroes')->with('success', 'Data Removed');
     }
 }
