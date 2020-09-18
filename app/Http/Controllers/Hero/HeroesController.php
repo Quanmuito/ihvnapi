@@ -242,8 +242,6 @@ class HeroesController extends Controller
 
         //Handle Hero Image Upload
         if($request->hasFile('img')){
-            //Delete the old image
-            Storage::delete('public/hero_images/'.$hero->img);
             // Get filename with the extension
             $filenameWithExt = $request->file('img')->getClientOriginalName();
             // Get just filename
@@ -254,13 +252,16 @@ class HeroesController extends Controller
             $img_fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('img')->storeAs('public/hero_images', $img_fileNameToStore);
+            //Delete the old image
+            if($hero->img != 'dummy_image.jpg')
+            {
+                Storage::delete('public/hero_images/'.$hero->img);
+            }
             $hero->img = $img_fileNameToStore;		
         }
 
         //Handle Hero Avatar Upload
         if($request->hasFile('avatar')){
-            //Delete the old image
-            Storage::delete('public/avatar_images/'.$hero->avatar);
             // Get filename with the extension
             $filenameWithExt = $request->file('avatar')->getClientOriginalName();
             // Get just filename
@@ -271,6 +272,11 @@ class HeroesController extends Controller
             $avatar_fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('avatar')->storeAs('public/avatar_images', $avatar_fileNameToStore);
+            //Delete the old image
+            if($hero->img != 'dummy_image.jpg')
+            {
+                Storage::delete('public/avatar_images/'.$hero->avatar);
+            }
             $hero->avatar = $avatar_fileNameToStore;
         }
 
