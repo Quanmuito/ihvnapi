@@ -54,7 +54,7 @@ class HeroesController extends Controller
         $hero_10 = Tenstar::where('name', $name)->get();
         $heroes = [$hero_5, $hero_6, $hero_10];
 
-        if(count($heroes) !== 0)
+        if(count($heroes) === 0)
         {
             return redirect('/heroes')->with('error', "No hero data found");
         }
@@ -253,7 +253,7 @@ class HeroesController extends Controller
             // Upload Image
             $path = $request->file('img')->storeAs('public/hero_images', $img_fileNameToStore);
             //Delete the old image
-            if($hero->img != 'dummy_image.jpg')
+            if($hero->img !== 'dummy_image.jpg')
             {
                 Storage::delete('public/hero_images/'.$hero->img);
             }
@@ -273,7 +273,7 @@ class HeroesController extends Controller
             // Upload Image
             $path = $request->file('avatar')->storeAs('public/avatar_images', $avatar_fileNameToStore);
             //Delete the old image
-            if($hero->img != 'dummy_image.jpg')
+            if($hero->img !== 'dummy_avatar.png')
             {
                 Storage::delete('public/avatar_images/'.$hero->avatar);
             }
