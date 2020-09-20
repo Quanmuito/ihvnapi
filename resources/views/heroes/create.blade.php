@@ -95,7 +95,7 @@
                 </div>
                 <div class="form-group">
                     {{Form::label('cc', 'Hero has crowd control ability')}}
-                    {{Form::text('cc', '', ['class' => 'form-control', 'placeholder' => 'stun, silence, petrify, horrify, transform. If not, type: none'])}}
+                    {{Form::text('cc', '', ['class' => 'form-control', 'placeholder' =>'stun, freeze, petrify, silence, horrify, transform. If not, type: none'])}}
                 </div>
                 <div class="form-group">
                     {{Form::label('heal', 'Heal type')}}

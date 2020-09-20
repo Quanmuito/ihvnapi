@@ -85,7 +85,7 @@
                 </div>
             <div class="form-group">
                     {{Form::label('cc', 'Hero has crowd control ability')}}
-                    {{Form::text('cc', $hero->cc, ['class' => 'form-control', 'placeholder' => 'stun, silence, petrify, horrify, transform. If not, type: none'])}}
+                    {{Form::text('cc', $hero->cc, ['class' => 'form-control', 'placeholder' => 'stun, freeze, petrify, silence, horrify, transform. If not, type: none'])}}
             </div>
             <div class="form-group">
                 {{Form::label('heal', 'Heal type')}}
@@ -103,7 +103,7 @@
             <div class="form-group">
                 {{Form::label('img', 'Hero Image')}}
                 {{Form::file('img')}}
-                <img style="width: 100px; height: 90px" src="/storage/hero_images/{{$hero->img}}">
+                <img style="width: 192px; height: 108px" src="/storage/hero_images/{{$hero->img}}">
             </div>
             <div class="form-group">
                 {{Form::label('avatar', 'Hero Avatar')}}
