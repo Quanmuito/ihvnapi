@@ -71,19 +71,21 @@
                 {{Form::number('speed', $hero->speed)}}
             </div>
             <div class="form-group">
-                {{Form::label('aoe', 'AOE damage')}}
-                {{
-                    Form::select('aoe', [
-                        'None' => 'None',
-                        '2-5 targets' => '2-5 targets',
-                        'All targets' => 'All targets'
-                    ], 
-                    $hero->aoe)
-                }}
-            </div>
+                    {{Form::label('aoe', 'AOE damage')}}
+                    {{
+                        Form::select('aoe', [
+                            'None' => 'None',
+                            'Front line' => 'Front line',
+                            'Back line' => 'Back line',
+                            'Random target' => 'Random target',
+                            'All targets' => 'All targets'
+                        ], 
+                        $hero->aoe)
+                    }}
+                </div>
             <div class="form-group">
-                {{Form::label('cc', 'Crowd Controll Types')}}
-                {{Form::text('cc', $hero->cc, ['class' => 'form-control', 'placeholder' => 'Name of cc types'])}}
+                    {{Form::label('cc', 'Hero has crowd control ability')}}
+                    {{Form::text('cc', $hero->cc, ['class' => 'form-control', 'placeholder' => 'stun, silence, petrify, horrify, transform. If not, type: none'])}}
             </div>
             <div class="form-group">
                 {{Form::label('heal', 'Heal type')}}
@@ -101,12 +103,12 @@
             <div class="form-group">
                 {{Form::label('img', 'Hero Image')}}
                 {{Form::file('img')}}
-                <img style="width: 80px; height: 60px" src="/storage/hero_images/{{$hero->img}}">
+                <img style="width: 100px; height: 90px" src="/storage/hero_images/{{$hero->img}}">
             </div>
             <div class="form-group">
                 {{Form::label('avatar', 'Hero Avatar')}}
                 {{Form::file('avatar')}}
-                <img style="width: 80px; height: 60px" src="/storage/avatar_images/{{$hero->avatar}}">
+                <img style="width: 80px; height: 80px" src="/storage/avatar_images/{{$hero->avatar}}">
             </div>
             {{Form::hidden('_method','PUT')}}
             {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}

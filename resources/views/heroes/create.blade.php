@@ -36,8 +36,17 @@
                     {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Name'])}}
                 </div>
                 <div class="form-group">
-                    {{Form::label('class', 'Hero class')}}
-                    {{Form::text('class', '', ['class' => 'form-control', 'placeholder' => 'Class'])}}
+                    {{Form::label('class', 'Hero Class')}}
+                    {{
+                        Form::select('class', [
+                            'warrior' => 'warrior',
+                            'mage' => 'mage',
+                            'ranger' => 'ranger',
+                            'assasin' => 'assasin',
+                            'priest' => 'priest'
+                        ], 
+                        'warrior')
+                    }}
                 </div>
                 <div class="form-group">
                     {{Form::label('skill1', 'Active skill')}}

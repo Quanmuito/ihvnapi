@@ -101,20 +101,4 @@ class FivestarController extends Controller
         // Return as resource
         return FivestarResource::collection($heroes);
     }
-
-
-    // /**
-    //  * Display the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function show($id)
-    // {
-    //     // Get 1 article
-    //     $hero = Fivestar::findOrFail($id);
-
-    //     // Return as a resource
-    //     return new FivestarResource($hero);
-    // }
 }

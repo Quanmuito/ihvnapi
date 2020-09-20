@@ -43,7 +43,7 @@ class User extends Authenticatable
     }
 
     public function sixstar() {
-        return $this->hasMany('App\Model\Sixestar');
+        return $this->hasMany('App\Model\Sixstar');
     }
 
     public function tenstar() {

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Hero;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Model\Fivestar;
 use App\Model\Sixstar;
@@ -81,6 +81,7 @@ class HeroesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'stars' => 'required',
             'faction' => 'required',
             'name' => 'required',
             'class' => 'required',
@@ -92,6 +93,8 @@ class HeroesController extends Controller
             'atk' => 'required',
             'armor' => 'required',
             'speed' => 'required',
+            'aoe' => 'required',
+            'cc' => 'required',
             'heal' => 'required',
             'img' => 'image|nullable|max:1999',
             'avatar' => 'image|nullable|max:1999',
@@ -119,7 +122,10 @@ class HeroesController extends Controller
             // Get just ext
             $extension = $request->file('img')->getClientOriginalExtension();
             // Filename to store
-            $img_fileNameToStore= $filename.'_'.time().'.'.$extension;
+            $herostar = $request->input('stars');
+            $herofaction = $request->input('faction');
+            $heroclass = $request->input('class');
+            $img_fileNameToStore= 'img_'.$herostar.'-'.$herofaction.'-'.$heroclass.'-'.$filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('img')->storeAs('public/hero_images', $img_fileNameToStore);
 		
@@ -136,7 +142,10 @@ class HeroesController extends Controller
             // Get just ext
             $extension = $request->file('avatar')->getClientOriginalExtension();
             // Filename to store
-            $avatar_fileNameToStore= $filename.'_'.time().'.'.$extension;
+            $herostar = $request->input('stars');
+            $herofaction = $request->input('faction');
+            $heroclass = $request->input('class');
+            $avatar_fileNameToStore= 'avatar_'.$herostar.'-'.$herofaction.'-'.$heroclass.'-'.$filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('avatar')->storeAs('public/avatar_images', $avatar_fileNameToStore);
 		
@@ -211,6 +220,7 @@ class HeroesController extends Controller
     public function update(Request $request, $name)
     {
         $this->validate($request, [
+            'stars' => 'required',
             'faction' => 'required',
             'name' => 'required',
             'class' => 'required',
@@ -222,6 +232,8 @@ class HeroesController extends Controller
             'atk' => 'required',
             'armor' => 'required',
             'speed' => 'required',
+            'aoe' => 'required',
+            'cc' => 'required',
             'heal' => 'required',
             'img' => 'image|nullable|max:1999',
             'avatar' => 'image|nullable|max:1999',
@@ -242,6 +254,11 @@ class HeroesController extends Controller
 
         //Handle Hero Image Upload
         if($request->hasFile('img')){
+            //Delete the old image
+            if($hero->img !== 'dummy_image.jpg')
+            {
+                Storage::delete('public/hero_images/'.$hero->img);
+            }
             // Get filename with the extension
             $filenameWithExt = $request->file('img')->getClientOriginalName();
             // Get just filename
@@ -249,19 +266,22 @@ class HeroesController extends Controller
             // Get just ext
             $extension = $request->file('img')->getClientOriginalExtension();
             // Filename to store
-            $img_fileNameToStore= $filename.'_'.time().'.'.$extension;
+            $herostar = $request->input('stars');
+            $herofaction = $request->input('faction');
+            $heroclass = $request->input('class');
+            $img_fileNameToStore= 'img_'.$herostar.'-'.$herofaction.'-'.$heroclass.'-'.$filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('img')->storeAs('public/hero_images', $img_fileNameToStore);
-            //Delete the old image
-            if($hero->img !== 'dummy_image.jpg')
-            {
-                Storage::delete('public/hero_images/'.$hero->img);
-            }
-            $hero->img = $img_fileNameToStore;		
+            $hero->img = $img_fileNameToStore;
         }
 
         //Handle Hero Avatar Upload
         if($request->hasFile('avatar')){
+            //Delete the old image
+            if($hero->avatar !== 'dummy_avatar.png')
+            {
+                Storage::delete('public/avatar_images/'.$hero->avatar);
+            }
             // Get filename with the extension
             $filenameWithExt = $request->file('avatar')->getClientOriginalName();
             // Get just filename
@@ -269,14 +289,12 @@ class HeroesController extends Controller
             // Get just ext
             $extension = $request->file('avatar')->getClientOriginalExtension();
             // Filename to store
-            $avatar_fileNameToStore= $filename.'_'.time().'.'.$extension;
+            $herostar = $request->input('stars');
+            $herofaction = $request->input('faction');
+            $heroclass = $request->input('class');
+            $avatar_fileNameToStore= 'avatar_'.$herostar.'-'.$herofaction.'-'.$heroclass.'-'.$filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('avatar')->storeAs('public/avatar_images', $avatar_fileNameToStore);
-            //Delete the old image
-            if($hero->img !== 'dummy_avatar.png')
-            {
-                Storage::delete('public/avatar_images/'.$hero->avatar);
-            }
             $hero->avatar = $avatar_fileNameToStore;
         }
 
@@ -332,13 +350,13 @@ class HeroesController extends Controller
             return redirect('/heroes')->with('error', 'Unauthorized Page');
         }
 
-        if($hero->hero_image != 'dummy_image.jpg'){
+        if($hero->img !== 'dummy_image.jpg'){
             // Delete Image
             Storage::delete('public/hero_images/'.$hero->img);
         }
 
-        if($hero->hero_image != 'dummy_avatar.png'){
-            // Delete Image
+        if($hero->avatar !== 'dummy_avatar.png'){
+            // Delete Avatar
             Storage::delete('public/avatar_images/'.$hero->avatar);
         }
         

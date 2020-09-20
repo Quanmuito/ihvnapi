@@ -23,13 +23,13 @@
                 <li><img style="width: 80px; height: 60px" src="/storage/hero_images/{{$hero->img}}"></li>
                 <li><img style="width: 80px; height: 60px" src="/storage/avatar_images/{{$hero->avatar}}"></li>
                 <li>{{$hero->user_id}}</li> 
-                <li><a class="btn btn-primary" href="/heroes/5/{{$hero->name}}/edit">Edit hero data</a></li>
-                <li>
+                <p><a  target="blank" class="btn btn-primary" href="/heroes/5/{{$hero->name}}/edit">Edit hero data</a></p>
+                <p>
                     {!!Form::open(['action' => ['Hero\HeroesController@destroy', 5, $hero->name], 'method' => 'POST', 'class' => 'pull-right'])!!}
                         {{Form::hidden('_method', 'DELETE')}}
                         {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
                     {!!Form::close()!!}
-                </li>           
+                </p>           
             @endforeach
 
             @foreach ($heroes[1] as $hero)
@@ -51,13 +51,13 @@
                 <li><img style="width: 80px; height: 60px" src="/storage/hero_images/{{$hero->img}}"></li>
                 <li><img style="width: 80px; height: 60px" src="/storage/avatar_images/{{$hero->avatar}}"></li>
                 <li>{{$hero->user_id}}</li>
-                <li><a href="/heroes/6/{{$hero->name}}/edit">Edit hero data</a></li>
-                <li>
+                <p><a target="blank" class="btn btn-primary" href="/heroes/6/{{$hero->name}}/edit">Edit hero data</a></p>
+                <p>
                     {!!Form::open(['action' => ['Hero\HeroesController@destroy', 6, $hero->name], 'method' => 'POST', 'class' => 'pull-right'])!!}
                         {{Form::hidden('_method', 'DELETE')}}
                         {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
                     {!!Form::close()!!}
-                </li>                   
+                </p>                   
             @endforeach
 
             @foreach ($heroes[2] as $hero)
@@ -79,13 +79,13 @@
                 <li><img style="width: 80px; height: 60px" src="/storage/hero_images/{{$hero->img}}"></li>
                 <li><img style="width: 80px; height: 60px" src="/storage/avatar_images/{{$hero->avatar}}"></li>
                 <li>{{$hero->user_id}}</li>
-                <li><a href="/heroes/10/{{$hero->name}}/edit">Edit hero data</a></li>
-                <li>
+                <p><a target="blank" class="btn btn-primary" href="/heroes/10/{{$hero->name}}/edit">Edit hero data</a></p>
+                <p>
                     {!!Form::open(['action' => ['Hero\HeroesController@destroy', 10, $hero->name], 'method' => 'POST', 'class' => 'pull-right'])!!}
                         {{Form::hidden('_method', 'DELETE')}}
                         {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
                     {!!Form::close()!!}
-                </li>                  
+                </p>                  
             @endforeach
         </ul>
     </div>
