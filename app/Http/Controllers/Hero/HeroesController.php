@@ -124,8 +124,8 @@ class HeroesController extends Controller
             // Filename to store
             $herostar = $request->input('stars');
             $herofaction = $request->input('faction');
-            $heroclass = $request->input('class');
-            $img_fileNameToStore= 'img_'.$herostar.'-'.$herofaction.'-'.$heroclass.'-'.$filename.'_'.time().'.'.$extension;
+            $heroname = str_replace(' ', '', $request->input('name'));
+            $img_fileNameToStore= 'img_'.$herostar.'-'.$herofaction.'-'.$heroname.'-'.$filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('img')->storeAs('public/hero_images', $img_fileNameToStore);
 		
@@ -144,8 +144,8 @@ class HeroesController extends Controller
             // Filename to store
             $herostar = $request->input('stars');
             $herofaction = $request->input('faction');
-            $heroclass = $request->input('class');
-            $avatar_fileNameToStore= 'avatar_'.$herostar.'-'.$herofaction.'-'.$heroclass.'-'.$filename.'_'.time().'.'.$extension;
+            $heroname = str_replace(' ', '', $request->input('name'));
+            $avatar_fileNameToStore= 'avatar_'.$herostar.'-'.$herofaction.'-'.$heroname.'-'.$filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('avatar')->storeAs('public/avatar_images', $avatar_fileNameToStore);
 		
@@ -268,8 +268,8 @@ class HeroesController extends Controller
             // Filename to store
             $herostar = $request->input('stars');
             $herofaction = $request->input('faction');
-            $heroclass = $request->input('class');
-            $img_fileNameToStore= 'img_'.$herostar.'-'.$herofaction.'-'.$heroclass.'-'.$filename.'_'.time().'.'.$extension;
+            $heroname = str_replace(' ', '', $request->input('name'));
+            $img_fileNameToStore= 'img_'.$herostar.'-'.$herofaction.'-'.$heroname.'-'.$filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('img')->storeAs('public/hero_images', $img_fileNameToStore);
             $hero->img = $img_fileNameToStore;
@@ -291,8 +291,8 @@ class HeroesController extends Controller
             // Filename to store
             $herostar = $request->input('stars');
             $herofaction = $request->input('faction');
-            $heroclass = $request->input('class');
-            $avatar_fileNameToStore= 'avatar_'.$herostar.'-'.$herofaction.'-'.$heroclass.'-'.$filename.'_'.time().'.'.$extension;
+            $heroname = str_replace(' ', '', $request->input('name'));
+            $avatar_fileNameToStore= 'avatar_'.$herostar.'-'.$herofaction.'-'.$heroname.'-'.$filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('avatar')->storeAs('public/avatar_images', $avatar_fileNameToStore);
             $hero->avatar = $avatar_fileNameToStore;
