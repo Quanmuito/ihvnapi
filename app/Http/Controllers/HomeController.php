@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        // return view('home')->with('heroes', $);
-        return [$user->fivestar, $user->sixstar, $user->tenstar];
+        $heroes = [$user->fivestar, $user->sixstar, $user->tenstar];
+        return view('home')->with('heroes', $heroes);
     }
 }
