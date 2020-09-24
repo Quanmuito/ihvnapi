@@ -26,7 +26,8 @@
                             'albyss' => 'albyss',
                             'forest' => 'forest',
                             'light' => 'light',
-                            'dark' => 'dark'
+                            'dark' => 'dark',
+                            'void' => 'void'
                         ], 
                         'shadow')
                     }}
@@ -84,13 +85,13 @@
                     {{Form::label('aoe', 'AOE damage')}}
                     {{
                         Form::select('aoe', [
-                            'None' => 'None',
-                            'Front line' => 'Front line',
-                            'Back line' => 'Back line',
-                            'Random target' => 'Random target',
-                            'All targets' => 'All targets'
+                            'none' => 'none',
+                            'frontline' => 'frontline',
+                            'backline' => 'backline',
+                            'random' => 'random',
+                            'all' => 'all'
                         ], 
-                        'None')
+                        'none')
                     }}
                 </div>
                 <div class="form-group">
@@ -101,12 +102,12 @@
                     {{Form::label('heal', 'Heal type')}}
                     {{
                         Form::select('heal', [
-                            'None' => 'None',
-                            'Self-heal' => 'Self-heal',
-                            'Heal others' => 'Heal others',
-                            'Both' => 'Both'
+                            'none' => 'none',
+                            'self' => 'self',
+                            'others' => 'others',
+                            'both' => 'both'
                         ], 
-                        'None')
+                        'none')
                     }}
                 </div>
 
