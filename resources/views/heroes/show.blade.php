@@ -3,9 +3,9 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-12">
-            @if (count($heroes[0]) > 0)
+            @if (count($fivestar) > 0)
                 <h3>5 stars form</h3>
-                @foreach ($heroes[0] as $hero)
+                @foreach ($fivestar as $hero)
                     <!-- Stack the columns on mobile by making one full-width and the other half-width -->
                     <div class="row">
                         <div class="col-6 col-md-4">
@@ -45,9 +45,9 @@
                 <h3>No data for 5 stars form</h3>
             @endif
 
-            @if (count($heroes[1]) > 0)
+            @if (count($sixstar) > 0)
                 <h3>6 stars form</h3>
-                @foreach ($heroes[1] as $hero)
+                @foreach ($sixstar as $hero)
                     <!-- Stack the columns on mobile by making one full-width and the other half-width -->
                     <div class="row">
                         <div class="col-6 col-md-4">
@@ -87,9 +87,9 @@
                 <h3>No data for 6 stars form</h3>
             @endif
 
-            @if (count($heroes[2]) > 0)
+            @if (count($tenstar) > 0)
                 <h3>10 stars form</h3>
-                @foreach ($heroes[2] as $hero)
+                @foreach ($tenstar as $hero)
                     <!-- Stack the columns on mobile by making one full-width and the other half-width -->
                     <div class="row">
                         <div class="col-6 col-md-4">

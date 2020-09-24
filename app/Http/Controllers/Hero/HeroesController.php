@@ -31,14 +31,18 @@ class HeroesController extends Controller
     public function index()
     {
         // Get all heroes
-        $hero_5 = Fivestar::all();
+        $hero_5 = Fivestar::orderBy('faction','asc')->get();;
         $hero_6 = Sixstar::all();
         $hero_10 = Tenstar::all();
-        $heroes = [$hero_5, $hero_6, $hero_10];
+        $data = [
+            'fivestar' => $hero_5, 
+            'sixstar' => $hero_6, 
+            'tenstar' => $hero_10
+        ];
 
         // Return as resource
         // return FivestarResource::collection($heroes);
-        return view('heroes.index')->with('heroes', $heroes);
+        return view('heroes.index')->with($data);
     }
 
     /**
@@ -52,13 +56,17 @@ class HeroesController extends Controller
         $hero_5 = Fivestar::where('name', $name)->get();
         $hero_6 = Sixstar::where('name', $name)->get();
         $hero_10 = Tenstar::where('name', $name)->get();
-        $heroes = [$hero_5, $hero_6, $hero_10];
+        $data = [
+            'fivestar' => $hero_5, 
+            'sixstar' => $hero_6, 
+            'tenstar' => $hero_10
+        ];
 
-        if(count($heroes) === 0)
+        if(count($hero_5) === 0 && count($hero_6) === 0 && count($hero_10) === 0)
         {
             return redirect('/heroes')->with('error', "No hero data found");
         }
-        return view('heroes.show')->with('heroes', $heroes);
+        return view('heroes.show')->with($data);
     }
 
 
@@ -174,7 +182,7 @@ class HeroesController extends Controller
         $hero->avatar = $avatar_fileNameToStore;
         $hero->save();
 
-        return redirect('/heroes')->with('success', 'Hero Data Created');
+        return redirect('/home')->with('success', 'Hero Data Created');
     }
 
     /**

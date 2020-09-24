@@ -17,38 +17,50 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    {{ __('You are logged in! Your contribution:') }}
                 </div>
 
                 <div class="card-body">
                     <div class="container">
                         <div class="row">
                             <div class="col-sm">
-                                @if (count($heroes[0]) > 0)
-                                    <p>5 stars hero</p>
-                                    @foreach ($heroes[0] as $hero)
-                                        <img style="width: 80px; height: 80px" src="/storage/avatar_images/{{$hero->avatar}}">
-                                    @endforeach
+                                @if (count($fivestar) > 0)
+                                    <h4>5 stars hero</h4>
+                                    <x-display-heroes faction="shadow" :collection="$fivestar"/>
+                                    <x-display-heroes faction="fortress" :collection="$fivestar"/>
+                                    <x-display-heroes faction="albyss" :collection="$fivestar"/>
+                                    <x-display-heroes faction="forest" :collection="$fivestar"/>
+                                    <x-display-heroes faction="dark" :collection="$fivestar"/>
+                                    <x-display-heroes faction="light" :collection="$fivestar"/>
+                                    <x-display-heroes faction="void" :collection="$fivestar"/>
                                 @else
                                     <p>No 5 stars hero data</p>
                                 @endif
                             </div>
                             <div class="col-sm">
-                                @if (count($heroes[1]) > 0)
-                                    <p>6 stars hero</p>
-                                    @foreach ($heroes[1] as $hero)
-                                        <img style="width: 80px; height: 80px" src="/storage/avatar_images/{{$hero->avatar}}">
-                                    @endforeach
+                                @if (count($fivestar) > 0)
+                                    <h4>6 stars hero</h4>
+                                    <x-display-heroes faction="shadow" :collection="$sixstar"/>
+                                    <x-display-heroes faction="fortress" :collection="$sixstar"/>
+                                    <x-display-heroes faction="albyss" :collection="$sixstar"/>
+                                    <x-display-heroes faction="forest" :collection="$sixstar"/>
+                                    <x-display-heroes faction="dark" :collection="$sixstar"/>
+                                    <x-display-heroes faction="light" :collection="$sixstar"/>
+                                    <x-display-heroes faction="void" :collection="$sixstar"/>
                                 @else
                                     <p>No 6 stars hero data</p>
                                 @endif
                             </div>
                             <div class="col-sm">
-                                @if (count($heroes[2]) > 0)
-                                <p>10 stars hero</p>
-                                    @foreach ($heroes[2] as $hero)
-                                        <img style="width: 80px; height: 80px" src="/storage/avatar_images/{{$hero->avatar}}">
-                                    @endforeach
+                                @if (count($fivestar) > 0)
+                                    <h4>10 stars hero</h4>
+                                    <x-display-heroes faction="shadow" :collection="$tenstar"/>
+                                    <x-display-heroes faction="fortress" :collection="$tenstar"/>
+                                    <x-display-heroes faction="albyss" :collection="$tenstar"/>
+                                    <x-display-heroes faction="forest" :collection="$tenstar"/>
+                                    <x-display-heroes faction="dark" :collection="$tenstar"/>
+                                    <x-display-heroes faction="light" :collection="$tenstar"/>
+                                    <x-display-heroes faction="void" :collection="$tenstar"/>
                                 @else
                                     <p>No 10 stars hero data</p>
                                 @endif
