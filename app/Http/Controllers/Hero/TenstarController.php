@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Hero;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use DB;
 use App\Model\Tenstar;
 use App\Http\Resources\Tenstar as TenstarResource;
 
@@ -100,5 +101,29 @@ class TenstarController extends Controller
 
         // Return as resource
         return TenstarResource::collection($heroes);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function void()
+    {
+        $heroes = Tenstar::where('faction', 'void')->get();
+
+        // Return as resource
+        return TenstarResource::collection($heroes);
+    }
+
+    /**
+     * Delete content of the whole table.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function delete()
+    {
+        DB::table('tenstars')->truncate();
+        return redirect('/home')->with('success', '10 stars heroes data deleted');
     }
 }

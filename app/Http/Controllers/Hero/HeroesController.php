@@ -325,7 +325,7 @@ class HeroesController extends Controller
         $hero->heal = $request->input('heal');
         $hero->save();
 
-        return redirect('/heroes')->with('success', 'Hero Data Updated');
+        return redirect('/home')->with('success', 'Hero Data Updated');
     }
 
     /**
@@ -350,12 +350,12 @@ class HeroesController extends Controller
 
         //Check if data exists before deleting
         if (!isset($hero)){
-            return redirect('/heroes')->with('error', 'No Hero Data Found');
+            return redirect('/home')->with('error', 'No Hero Data Found');
         }
 
         // Check for correct user
         if(strval(auth()->user()->id) !== $hero->user_id){
-            return redirect('/heroes')->with('error', 'Unauthorized Page');
+            return redirect('/home')->with('error', 'Unauthorized Page');
         }
 
         if($hero->img !== 'dummy_image.jpg'){
@@ -369,6 +369,6 @@ class HeroesController extends Controller
         }
         
         $hero->delete();
-        return redirect('/heroes')->with('success', 'Data Removed');
+        return redirect('/home')->with('success', 'Data Removed');
     }
 }

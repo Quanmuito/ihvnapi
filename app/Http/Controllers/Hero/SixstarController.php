@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Hero;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use DB;
 use App\Model\Sixstar;
 use App\Http\Resources\Sixstar as SixstarResource;
 
@@ -100,5 +101,29 @@ class SixstarController extends Controller
 
         // Return as resource
         return SixstarResource::collection($heroes);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function void()
+    {
+        $heroes = Sixstar::where('faction', 'void')->get();
+
+        // Return as resource
+        return SixstarResource::collection($heroes);
+    }
+
+    /**
+     * Delete content of the whole table.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function delete()
+    {
+        DB::table('sixstars')->truncate();
+        return redirect('/home')->with('success', '6 stars heroes data deleted');
     }
 }

@@ -20,10 +20,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('/register', function () {
-//     return "Contact site creator to get an account";
-// })->name('register');
+Route::get('/register', function () {
+    return "Contact site creator to get an account";
+})->name('register');
 
 Route::resource('/heroes', 'Hero\HeroesController');
 Route::get('/heroes/{star}/{name}/edit', 'Hero\HeroesController@edit');
 Route::delete('/heroes/{star}/{name}', 'Hero\HeroesController@destroy');
+
+// Truncate tables
+Route::get('/heroes/delete/all/fivestars', 'Hero\FivestarController@delete');
+Route::get('/heroes/delete/all/sixstars', 'Hero\SixstarController@delete');
+Route::get('/heroes/delete/all/tenstars', 'Hero\TenstarController@delete');

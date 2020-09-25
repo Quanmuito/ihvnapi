@@ -11,6 +11,6 @@ class SixstarsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Model\Sixstar::class, 30)->create();
+        factory(App\Model\Sixstar::class, 20)->create();
     }
 }

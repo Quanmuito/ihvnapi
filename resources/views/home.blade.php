@@ -38,7 +38,7 @@
                                 @endif
                             </div>
                             <div class="col-sm">
-                                @if (count($fivestar) > 0)
+                                @if (count($sixstar) > 0)
                                     <h4>6 stars hero</h4>
                                     <x-display-heroes faction="shadow" :collection="$sixstar"/>
                                     <x-display-heroes faction="fortress" :collection="$sixstar"/>
@@ -52,7 +52,7 @@
                                 @endif
                             </div>
                             <div class="col-sm">
-                                @if (count($fivestar) > 0)
+                                @if (count($tenstar) > 0)
                                     <h4>10 stars hero</h4>
                                     <x-display-heroes faction="shadow" :collection="$tenstar"/>
                                     <x-display-heroes faction="fortress" :collection="$tenstar"/>

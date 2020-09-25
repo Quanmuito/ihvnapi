@@ -11,6 +11,6 @@ class TenstarsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Model\Tenstar::class, 30)->create();
+        factory(App\Model\Tenstar::class, 20)->create();
     }
 }
