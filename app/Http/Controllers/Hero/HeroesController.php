@@ -56,10 +56,12 @@ class HeroesController extends Controller
         $hero_5 = Fivestar::where('name', $name)->get();
         $hero_6 = Sixstar::where('name', $name)->get();
         $hero_10 = Tenstar::where('name', $name)->get();
+
         $data = [
             'fivestar' => $hero_5, 
             'sixstar' => $hero_6, 
-            'tenstar' => $hero_10
+            'tenstar' => $hero_10,
+            'user_name' => auth()->user()->name
         ];
 
         if(count($hero_5) === 0 && count($hero_6) === 0 && count($hero_10) === 0)
