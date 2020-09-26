@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Hero;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use DB;
@@ -123,6 +124,18 @@ class TenstarController extends Controller
      */
     public function delete()
     {
+        $heroes = Tenstar::all();
+        for($i=0;$i<count($heroes);$i++)
+        {
+            if($heroes[$i]->img !== "dummy_image.jpg")
+            {
+                Storage::delete('public/hero_images/'.$heroes[$i]->img);
+            }
+            if($heroes[$i]->avatar !== "dummy_avatar.png")
+            {
+                Storage::delete('public/avatar_images/'.$heroes[$i]->avatar);
+            }
+        }
         DB::table('tenstars')->truncate();
         return redirect('/home')->with('success', '10 stars heroes data deleted');
     }
