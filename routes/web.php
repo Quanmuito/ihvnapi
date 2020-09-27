@@ -20,9 +20,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('/register', function () {
-//     return "Contact site creator to get an account";
-// })->name('register');
+Route::get('/register', function () {
+    return '<h1 style="text-align: center; margin-top: 40vh">Contact site creator to get an account</h1>';
+})->name('register');
 
 Route::resource('/heroes', 'Hero\HeroesController');
 Route::get('/heroes/{star}/{name}/edit', 'Hero\HeroesController@edit');
