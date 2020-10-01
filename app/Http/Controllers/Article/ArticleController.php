@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Model\Article;
+use App\User;
 use App\Http\Resources\Article as ArticleResource;
+use App\Http\Resources\User as UserResource;
 
 class ArticleController extends Controller
 {
@@ -74,5 +76,20 @@ class ArticleController extends Controller
             return new ArticleResource($article);
         }
 
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function user()
+    {
+        //Get 15 articles
+        // $articles = Article::paginate(15);
+        $users = User::orderBy('id', 'desc')->get();
+
+        // Return as resource
+        return UserResource::collection($users);
     }
 }

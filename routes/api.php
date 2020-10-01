@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // List
 Route::get('articles', 'Article\ArticleController@index');
+Route::get('users', 'Article\ArticleController@user');
 
 /* 
 APIs for getting data
