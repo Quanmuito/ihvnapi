@@ -14,10 +14,19 @@
             {{$collection[$key]}}
         </td>
     </tr>
-@else
+@elseif($key === "hp" || $key === "atk" || $key === "armor" || $key === "speed")
     <tr>
         <th scope="row">
             <img style="width: 23px" src={{$icons->attributes[$key]}} alt="attribute-icon">
+            {{strtoupper($key)}}
+        </th>
+        <td>
+            {{$collection[$key]}}
+        </td>
+    </tr>
+@else
+    <tr>
+        <th scope="row">
             {{strtoupper($key)}}
         </th>
         <td>

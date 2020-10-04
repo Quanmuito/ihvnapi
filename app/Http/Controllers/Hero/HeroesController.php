@@ -190,8 +190,19 @@ class HeroesController extends Controller
         $hero->heal = $request->input('heal');
         // $hero->img = $img_fileNameToStore;
         // $hero->avatar = $avatar_fileNameToStore;
-        $hero->img = $request->input('img');
-        $hero->avatar = $request->input('avatar');
+        if (! is_null($request->input('img'))) {
+            $hero->img = $request->input('img');
+        }
+        else {
+            $hero->img = "";
+        }
+
+        if (! is_null($request->input('avatar'))) {
+            $hero->avatar = $request->input('avatar');
+        }
+        else {
+            $hero->avatar = "";
+        }
         $hero->save();
 
         return redirect('/home')->with('success', 'Hero Data Created');

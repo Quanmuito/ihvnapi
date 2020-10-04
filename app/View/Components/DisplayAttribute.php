@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
-use App\View\Components\ImageVariables;
+use App\Variables\ImageVariables;
 
 class DisplayAttribute extends Component
 {

@@ -8,32 +8,17 @@
                     <img style="width: 80px; height: 80px" src="{{$hero->avatar}}">
 
                     <table class="table table-srtiped">
-                        <tr>
-                            <th scope="row">{{strtoupper('id')}}</th>
-                            <td>{{$hero->id}}</td>
-                        </tr>
+                        <x-display-attribute key="id" :collection="$hero"/>
                         <x-display-attribute key="faction" :collection="$hero"/>
                         <x-display-attribute key="class" :collection="$hero"/>
-                        <tr>
-                            <th scope="row">{{strtoupper('name')}}</th>
-                            <td>{{$hero->name}}</td>
-                        </tr>
+                        <x-display-attribute key="name" :collection="$hero"/>
                         <x-display-attribute key="hp" :collection="$hero"/>
                         <x-display-attribute key="atk" :collection="$hero"/>
                         <x-display-attribute key="armor" :collection="$hero"/>
                         <x-display-attribute key="speed" :collection="$hero"/>
-                        <tr>
-                            <th scope="row">{{strtoupper('aoe')}}</th>
-                            <td>{{$hero->aoe}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">{{strtoupper('cc')}}</th>
-                            <td>{{$hero->cc}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">{{strtoupper('heal')}}</th>
-                            <td>{{$hero->heal}}</td>
-                        </tr>
+                        <x-display-attribute key="aoe" :collection="$hero"/>
+                        <x-display-attribute key="cc" :collection="$hero"/>
+                        <x-display-attribute key="heal" :collection="$hero"/>
                         <tr>
                             <th scope="row">CONTRIBUTOR</th>
                             <td>{{App\User::find($hero->user_id)->name}}</td>
