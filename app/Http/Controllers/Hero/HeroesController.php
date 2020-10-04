@@ -194,14 +194,14 @@ class HeroesController extends Controller
             $hero->img = $request->input('img');
         }
         else {
-            $hero->img = "";
+            $hero->img = "no_image";
         }
 
         if (! is_null($request->input('avatar'))) {
             $hero->avatar = $request->input('avatar');
         }
         else {
-            $hero->avatar = "";
+            $hero->avatar = "no_avatar";
         }
         $hero->save();
 
