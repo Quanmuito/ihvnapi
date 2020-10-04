@@ -3,11 +3,13 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use App\View\Components\ImageVariables;
 
 class DisplayAttribute extends Component
 {
     public $key;
     public $collection;
+    public $icons;
 
     /**
      * Create a new component instance.
@@ -18,6 +20,7 @@ class DisplayAttribute extends Component
     {
         $this->key = $key;
         $this->collection = $collection;
+        $this->icons = new ImageVariables();
     }
 
     /**

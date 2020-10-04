@@ -67,6 +67,7 @@ class HeroesController extends Controller
         {
             return redirect('/heroes')->with('error', "No hero data found");
         }
+        
         return view('heroes.show')->with($data);
     }
 
