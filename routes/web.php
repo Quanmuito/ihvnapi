@@ -17,9 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/register', function () {
     return '<h1 style="text-align: center; margin-top: 40vh">Contact site creator to get an account</h1>';
 })->name('register');

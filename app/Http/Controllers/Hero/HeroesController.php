@@ -61,7 +61,6 @@ class HeroesController extends Controller
             'fivestar' => $hero_5, 
             'sixstar' => $hero_6, 
             'tenstar' => $hero_10,
-            'user_name' => auth()->user()->name
         ];
 
         if(count($hero_5) === 0 && count($hero_6) === 0 && count($hero_10) === 0)
@@ -106,8 +105,8 @@ class HeroesController extends Controller
             'aoe' => 'required',
             'cc' => 'required',
             'heal' => 'required',
-            'img' => 'image|nullable|max:1999',
-            'avatar' => 'image|nullable|max:1999',
+            'img' => 'nullable|max:1999',
+            'avatar' => 'nullable|max:1999',
         ]);
 
         // Find whether 5 6 10 stars hero
@@ -122,6 +121,10 @@ class HeroesController extends Controller
                 $hero = new Tenstar;
             break;
         }
+
+        /* 
+        * Temporary disable file upload
+        *
 
         //Handle Hero Image Upload
         if($request->hasFile('img')){
@@ -163,6 +166,10 @@ class HeroesController extends Controller
             $avatar_fileNameToStore = 'dummy_avatar.png';
         }
 
+        *
+        *
+        */
+
         // Save to database
 
         $hero->user_id = auth()->user()->id;
@@ -180,8 +187,10 @@ class HeroesController extends Controller
         $hero->aoe = $request->input('aoe');
         $hero->cc = $request->input('cc');
         $hero->heal = $request->input('heal');
-        $hero->img = $img_fileNameToStore;
-        $hero->avatar = $avatar_fileNameToStore;
+        // $hero->img = $img_fileNameToStore;
+        // $hero->avatar = $avatar_fileNameToStore;
+        $hero->img = $request->input('img');
+        $hero->avatar = $request->input('avatar');
         $hero->save();
 
         return redirect('/home')->with('success', 'Hero Data Created');
@@ -245,8 +254,8 @@ class HeroesController extends Controller
             'aoe' => 'required',
             'cc' => 'required',
             'heal' => 'required',
-            'img' => 'image|nullable|max:1999',
-            'avatar' => 'image|nullable|max:1999',
+            'img' => 'nullable|max:1999',
+            'avatar' => 'nullable|max:1999',
         ]);
 
         // Find whether 5 6 10 stars hero
@@ -261,6 +270,10 @@ class HeroesController extends Controller
                 $hero = Tenstar::where('name', $name)->get()[0];
             break;            
         }
+
+        /*
+        * Temporary disable file upload
+        *
 
         //Handle Hero Image Upload
         if($request->hasFile('img')){
@@ -308,6 +321,10 @@ class HeroesController extends Controller
             $hero->avatar = $avatar_fileNameToStore;
         }
 
+        *
+        *
+        */
+
         // Update hero data
 
         $hero->user_id = auth()->user()->id;
@@ -325,6 +342,8 @@ class HeroesController extends Controller
         $hero->aoe = $request->input('aoe');
         $hero->cc = $request->input('cc');
         $hero->heal = $request->input('heal');
+        $hero->img = $request->input('img');
+        $hero->avatar = $request->input('avatar');
         $hero->save();
 
         return redirect('/home')->with('success', 'Hero Data Updated');
@@ -360,6 +379,10 @@ class HeroesController extends Controller
             return redirect('/home')->with('error', 'Unauthorized Page');
         }
 
+        /*
+        *   Temporary disable file upload
+        *
+
         if($hero->img !== 'dummy_image.jpg'){
             // Delete Image
             Storage::delete('public/hero_images/'.$hero->img);
@@ -369,6 +392,10 @@ class HeroesController extends Controller
             // Delete Avatar
             Storage::delete('public/avatar_images/'.$hero->avatar);
         }
+
+        *
+        *
+        */
         
         $hero->delete();
         return redirect('/home')->with('success', 'Data Removed');

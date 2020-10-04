@@ -5,7 +5,7 @@
             <!-- Stack the columns on mobile by making one full-width and the other half-width -->
             <div class="row">
                 <div class="col-6 col-md-4">
-                    <img style="width: 80px; height: 80px" src="/storage/avatar_images/{{$hero->avatar}}">
+                    <img style="width: 80px; height: 80px" src="{{$hero->avatar}}">
 
                     <table class="table table-srtiped">
                         <x-display-attribute key="id" :collection="$hero"/>
@@ -30,11 +30,11 @@
                     <p>{{$hero->skill2}}</p>
                     <p>{{$hero->skill3}}</p>
                     <p>{{$hero->skill4}}</p>
-                    <p><img style="width: 384px; height: 216px" src="/storage/hero_images/{{$hero->img}}"></p>
+                    <p><img style="width: 384px; height: 216px" src="{{$hero->img}}"></p>
                 </div>
             </div>
             <div style="display: flex">
-                @if (strval(Auth::user()->id) === $hero->user_id)
+                @if (! is_null(Auth::user()) && strval(Auth::user()->id) === $hero->user_id)
                     <p><a target="blank" class="btn btn-primary" href="/heroes/{{$star}}/{{$hero->name}}/edit">Edit hero data</a></p>
                     <p>
                         {!!Form::open(['action' => ['Hero\HeroesController@destroy', intval($star), $hero->name], 'method' => 'POST', 'class' => 'pull-right'])!!}

@@ -95,7 +95,7 @@
                     </div>
                 <div class="form-group">
                         {{Form::label('cc', 'Hero has crowd control ability')}}
-                        {{Form::text('cc', $hero->cc, ['class' => 'form-control', 'placeholder' => 'stun, freeze, petrify, silence, horrify, transform. If not, type: none'])}}
+                        {{Form::text('cc', $hero->cc, ['class' => 'form-control', 'placeholder' => 'stun, freeze, petrify, twine, silence, horrify, transform. If not, type: none'])}}
                 </div>
                 <div class="form-group">
                     {{Form::label('heal', 'Heal type')}}
@@ -112,13 +112,13 @@
 
                 <div class="form-group">
                     {{Form::label('img', 'Hero Image')}}
-                    {{Form::file('img')}}
-                    <img style="width: 192px; height: 108px" src="/storage/hero_images/{{$hero->img}}">
+                    {{Form::text('img', $hero->img, ['class' => 'form-control', 'placeholder' =>'Hero image link'])}}
+                    <img style="width: 192px; height: 108px" src="{{$hero->img}}">
                 </div>
                 <div class="form-group">
                     {{Form::label('avatar', 'Hero Avatar')}}
-                    {{Form::file('avatar')}}
-                    <img style="width: 80px; height: 80px" src="/storage/avatar_images/{{$hero->avatar}}">
+                    {{Form::text('avatar', $hero->avatar, ['class' => 'form-control', 'placeholder' =>'Hero avatar link'])}}
+                    <img style="width: 80px; height: 80px" src="{{$hero->avatar}}">
                 </div>
                 {{Form::hidden('_method','PUT')}}
                 {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}

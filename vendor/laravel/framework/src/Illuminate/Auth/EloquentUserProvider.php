@@ -47,9 +47,10 @@ class EloquentUserProvider implements UserProvider
     {
         $model = $this->createModel();
 
-        return $this->newModelQuery($model)
+        $user = $this->newModelQuery($model)
                     ->where($model->getAuthIdentifierName(), $identifier)
                     ->first();
+        return $user;
     }
 
     /**
