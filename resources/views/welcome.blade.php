@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <img src="{{url('storage/dummy_avatar.png')}}">
+    <img src="{{ asset('storage/dummy_avatar.png')}}">
 @endsection

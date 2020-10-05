@@ -123,6 +123,10 @@ class HeroesController extends Controller
             break;
         }
 
+        /* 
+        * Temporary disable file upload
+        *
+
         //Handle Hero Image Upload
         if($request->hasFile('img')){
             // Get filename with the extension
@@ -157,11 +161,15 @@ class HeroesController extends Controller
             $heroname = str_replace(' ', '', $request->input('name'));
             $avatar_fileNameToStore= 'avatar_'.$herostar.'-'.$herofaction.'-'.$heroname.'-'.$filename.'_'.time().'.'.$extension;
             // Upload Image
-            $path = $request->file('avatar')->storeAs('public/storage/avatar_images', $avatar_fileNameToStore);
+            $path = $request->file('avatar')->storeAs('public/avatar_images', $avatar_fileNameToStore);
 		
         } else {
             $avatar_fileNameToStore = 'dummy_avatar.png';
         }
+
+        *
+        *
+        */
 
         // Save to database
 
@@ -180,21 +188,21 @@ class HeroesController extends Controller
         $hero->aoe = $request->input('aoe');
         $hero->cc = $request->input('cc');
         $hero->heal = $request->input('heal');
-        $hero->img = $img_fileNameToStore;
-        $hero->avatar = $avatar_fileNameToStore;
-        // if (! is_null($request->input('img'))) {
-        //     $hero->img = $request->input('img');
-        // }
-        // else {
-        //     $hero->img = "no_image";
-        // }
+        // $hero->img = $img_fileNameToStore;
+        // $hero->avatar = $avatar_fileNameToStore;
+        if (! is_null($request->input('img'))) {
+            $hero->img = $request->input('img');
+        }
+        else {
+            $hero->img = "no_image";
+        }
 
-        // if (! is_null($request->input('avatar'))) {
-        //     $hero->avatar = $request->input('avatar');
-        // }
-        // else {
-        //     $hero->avatar = "no_avatar";
-        // }
+        if (! is_null($request->input('avatar'))) {
+            $hero->avatar = $request->input('avatar');
+        }
+        else {
+            $hero->avatar = "no_avatar";
+        }
         $hero->save();
 
         return redirect('/home')->with('success', 'Hero Data Created');
