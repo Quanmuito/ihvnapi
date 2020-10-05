@@ -35,7 +35,7 @@
             </div>
             <div style="display: flex">
                 @if (! is_null(Auth::user()) && strval(Auth::user()->id) === $hero->user_id)
-                    <p><a target="blank" class="btn btn-primary" href="/heroes/{{$star}}/{{$hero->name}}/edit">Edit hero data</a></p>
+                    <p><a class="btn btn-primary" href="/heroes/{{$star}}/{{$hero->name}}/edit">Edit hero data</a></p>
                     <p>
                         {!!Form::open(['action' => ['Hero\HeroesController@destroy', intval($star), $hero->name], 'method' => 'POST', 'class' => 'pull-right'])!!}
                             {{Form::hidden('_method', 'DELETE')}}
