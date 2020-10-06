@@ -5,7 +5,7 @@
             <!-- Stack the columns on mobile by making one full-width and the other half-width -->
             <div class="row">
                 <div class="col-6 col-md-4">
-                    <img style="width: 80px; height: 80px" src="{{$hero->avatar}}">
+                    <img style="width: 80px; height: 80px" src={{ asset("images/avatar_images/".$hero->avatar)}}>
 
                     <table class="table table-srtiped">
                         <x-display-attribute key="id" :collection="$hero"/>
@@ -30,7 +30,7 @@
                     <p>{{$hero->skill2}}</p>
                     <p>{{$hero->skill3}}</p>
                     <p>{{$hero->skill4}}</p>
-                    <p><img style="width: 384px; height: 216px" src="{{$hero->img}}"></p>
+                    <p><img style="width: 384px; height: 216px" src={{ asset("images/hero_images/".$hero->img)}}></p>
                 </div>
             </div>
             <div style="display: flex">

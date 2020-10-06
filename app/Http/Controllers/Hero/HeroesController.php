@@ -103,7 +103,9 @@ class HeroesController extends Controller
             'speed' => 'required',
             'aoe' => 'required',
             'cc' => 'required',
-            'heal' => 'required'
+            'heal' => 'required',
+            'img' => 'nullable',
+            'avatar' => 'nullable'
         ]);
 
         // Find whether 5 6 10 stars hero
@@ -117,6 +119,28 @@ class HeroesController extends Controller
             case 10:
                 $hero = new Tenstar;
             break;
+        }
+
+        // Handle hero image link
+
+        if (!is_null($request->input('img')))
+        {
+            $img_toStore = $request->input('img');
+        }
+        else
+        {
+            $img_toStore = 'dummy_image.png';
+        }
+
+        // Handle hero avatar link
+
+        if (!is_null($request->input('avatar')))
+        {
+            $avatar_toStore = $request->input('avatar');
+        }
+        else
+        {
+            $avatar_toStore = 'dummy_avatar.png';
         }
 
         // Save to database
@@ -136,6 +160,8 @@ class HeroesController extends Controller
         $hero->aoe = $request->input('aoe');
         $hero->cc = $request->input('cc');
         $hero->heal = $request->input('heal');
+        $hero->img = $img_toStore;
+        $hero->avatar = $avatar_toStore;
         $hero->save();
 
         return redirect('/home')->with('success', 'Hero Data Created');
@@ -199,6 +225,8 @@ class HeroesController extends Controller
             'aoe' => 'required',
             'cc' => 'required',
             'heal' => 'required',
+            'img' => 'nullable',
+            'avatar' => 'nullable'
         ]);
 
         // Find whether 5 6 10 stars hero
@@ -231,6 +259,8 @@ class HeroesController extends Controller
         $hero->aoe = $request->input('aoe');
         $hero->cc = $request->input('cc');
         $hero->heal = $request->input('heal');
+        $hero->img = $request->input('img');
+        $hero->avatar = $request->input('avatar');
         $hero->save();
 
         return redirect('/home')->with('success', 'Hero Data Updated');

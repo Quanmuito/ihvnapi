@@ -110,6 +110,14 @@
                         'none')
                     }}
                 </div>
+                <div class="form-group">
+                    {{Form::label('img', 'Hero Image')}}
+                    {{Form::text('img', '', ['class' => 'form-control', 'placeholder' => 'Hero Image'])}}
+                </div>
+                <div class="form-group">
+                    {{Form::label('avatar', 'Hero Avatar')}}
+                    {{Form::text('avatar', '', ['class' => 'form-control', 'placeholder' => 'Hero Avatar'])}}
+                </div>
                 {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
             {!! Form::close() !!}
         </div>

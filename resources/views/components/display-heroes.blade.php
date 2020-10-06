@@ -4,7 +4,7 @@
         @if($collection[$i]->faction === $faction)
             <a href="/heroes/{{$collection[$i]->name}}">
                 <img style="width: 60px; height: 60px" 
-                src="{{$collection[$i]->avatar}}">
+                src={{ asset("images/avatar_images/".$collection[$i]->avatar)}}>
             </a>
         @endif
     @endfor
