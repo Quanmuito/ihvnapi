@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <h1>Create Hero Data</h1>
-            {!! Form::open(['action' => 'Hero\HeroesController@store', 'method' => 'POST', 'files' => true]) !!}
+            {!! Form::open(['action' => 'Hero\HeroesController@store', 'method' => 'POST']) !!}
                 <div class="form-group">
                     {{Form::label('stars', 'Stars')}}
                     {{
@@ -109,15 +109,6 @@
                         ], 
                         'none')
                     }}
-                </div>
-
-                <div class="form-group">
-                    {{Form::label('img', 'Hero Image')}}
-                    {{Form::text('img', '', ['class' => 'form-control', 'placeholder' =>'Hero image link'])}}
-                </div>
-                <div class="form-group">
-                    {{Form::label('avatar', 'Hero Avatar')}}
-                    {{Form::text('avatar', '', ['class' => 'form-control', 'placeholder' =>'Hero avatar link'])}}
                 </div>
                 {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
             {!! Form::close() !!}

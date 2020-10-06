@@ -40,8 +40,6 @@ class HeroesController extends Controller
             'tenstar' => $hero_10
         ];
 
-        // Return as resource
-        // return FivestarResource::collection($heroes);
         return view('heroes.index')->with($data);
     }
 
@@ -105,9 +103,7 @@ class HeroesController extends Controller
             'speed' => 'required',
             'aoe' => 'required',
             'cc' => 'required',
-            'heal' => 'required',
-            'img' => 'nullable|max:1999',
-            'avatar' => 'nullable|max:1999',
+            'heal' => 'required'
         ]);
 
         // Find whether 5 6 10 stars hero
@@ -122,54 +118,6 @@ class HeroesController extends Controller
                 $hero = new Tenstar;
             break;
         }
-
-        /* 
-        * Temporary disable file upload
-        *
-
-        //Handle Hero Image Upload
-        if($request->hasFile('img')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('img')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('img')->getClientOriginalExtension();
-            // Filename to store
-            $herostar = $request->input('stars');
-            $herofaction = $request->input('faction');
-            $heroname = str_replace(' ', '', $request->input('name'));
-            $img_fileNameToStore= 'img_'.$herostar.'-'.$herofaction.'-'.$heroname.'-'.$filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('img')->storeAs('public/hero_images', $img_fileNameToStore);
-		
-        } else {
-            $img_fileNameToStore = 'dummy_image.jpg';
-        }
-
-        //Handle Hero Avatar Upload
-        if($request->hasFile('avatar')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('avatar')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('avatar')->getClientOriginalExtension();
-            // Filename to store
-            $herostar = $request->input('stars');
-            $herofaction = $request->input('faction');
-            $heroname = str_replace(' ', '', $request->input('name'));
-            $avatar_fileNameToStore= 'avatar_'.$herostar.'-'.$herofaction.'-'.$heroname.'-'.$filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('avatar')->storeAs('public/avatar_images', $avatar_fileNameToStore);
-		
-        } else {
-            $avatar_fileNameToStore = 'dummy_avatar.png';
-        }
-
-        *
-        *
-        */
 
         // Save to database
 
@@ -188,21 +136,6 @@ class HeroesController extends Controller
         $hero->aoe = $request->input('aoe');
         $hero->cc = $request->input('cc');
         $hero->heal = $request->input('heal');
-        // $hero->img = $img_fileNameToStore;
-        // $hero->avatar = $avatar_fileNameToStore;
-        if (! is_null($request->input('img'))) {
-            $hero->img = $request->input('img');
-        }
-        else {
-            $hero->img = "no_image";
-        }
-
-        if (! is_null($request->input('avatar'))) {
-            $hero->avatar = $request->input('avatar');
-        }
-        else {
-            $hero->avatar = "no_avatar";
-        }
         $hero->save();
 
         return redirect('/home')->with('success', 'Hero Data Created');
@@ -266,8 +199,6 @@ class HeroesController extends Controller
             'aoe' => 'required',
             'cc' => 'required',
             'heal' => 'required',
-            'img' => 'nullable|max:1999',
-            'avatar' => 'nullable|max:1999',
         ]);
 
         // Find whether 5 6 10 stars hero
@@ -282,60 +213,6 @@ class HeroesController extends Controller
                 $hero = Tenstar::where('name', $name)->get()[0];
             break;            
         }
-
-        /*
-        * Temporary disable file upload
-        *
-
-        //Handle Hero Image Upload
-        if($request->hasFile('img')){
-            //Delete the old image
-            if($hero->img !== 'dummy_image.jpg')
-            {
-                Storage::delete('public/hero_images/'.$hero->img);
-            }
-            // Get filename with the extension
-            $filenameWithExt = $request->file('img')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('img')->getClientOriginalExtension();
-            // Filename to store
-            $herostar = $request->input('stars');
-            $herofaction = $request->input('faction');
-            $heroname = str_replace(' ', '', $request->input('name'));
-            $img_fileNameToStore= 'img_'.$herostar.'-'.$herofaction.'-'.$heroname.'-'.$filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('img')->storeAs('public/hero_images', $img_fileNameToStore);
-            $hero->img = $img_fileNameToStore;
-        }
-
-        //Handle Hero Avatar Upload
-        if($request->hasFile('avatar')){
-            //Delete the old image
-            if($hero->avatar !== 'dummy_avatar.png')
-            {
-                Storage::delete('public/avatar_images/'.$hero->avatar);
-            }
-            // Get filename with the extension
-            $filenameWithExt = $request->file('avatar')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('avatar')->getClientOriginalExtension();
-            // Filename to store
-            $herostar = $request->input('stars');
-            $herofaction = $request->input('faction');
-            $heroname = str_replace(' ', '', $request->input('name'));
-            $avatar_fileNameToStore= 'avatar_'.$herostar.'-'.$herofaction.'-'.$heroname.'-'.$filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('avatar')->storeAs('public/avatar_images', $avatar_fileNameToStore);
-            $hero->avatar = $avatar_fileNameToStore;
-        }
-
-        *
-        *
-        */
 
         // Update hero data
 
@@ -354,8 +231,6 @@ class HeroesController extends Controller
         $hero->aoe = $request->input('aoe');
         $hero->cc = $request->input('cc');
         $hero->heal = $request->input('heal');
-        $hero->img = $request->input('img');
-        $hero->avatar = $request->input('avatar');
         $hero->save();
 
         return redirect('/home')->with('success', 'Hero Data Updated');
@@ -390,24 +265,6 @@ class HeroesController extends Controller
         if(strval(auth()->user()->id) !== $hero->user_id){
             return redirect('/home')->with('error', 'Unauthorized Page');
         }
-
-        /*
-        *   Temporary disable file upload
-        *
-
-        if($hero->img !== 'dummy_image.jpg'){
-            // Delete Image
-            Storage::delete('public/hero_images/'.$hero->img);
-        }
-
-        if($hero->avatar !== 'dummy_avatar.png'){
-            // Delete Avatar
-            Storage::delete('public/avatar_images/'.$hero->avatar);
-        }
-
-        *
-        *
-        */
         
         $hero->delete();
         return redirect('/home')->with('success', 'Data Removed');

@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <h1>Edit Hero Data</h1>
-            {!! Form::open(['action' => ['Hero\HeroesController@update', $hero->name],'method' => 'POST', 'files' => true]) !!}
+            {!! Form::open(['action' => ['Hero\HeroesController@update', $hero->name],'method' => 'POST']) !!}
                 <div class="form-group">
                     {{Form::label('stars', 'Stars')}}
                     {{
@@ -108,17 +108,6 @@
                             ], 
                             $hero->heal)
                     }}
-                </div>
-
-                <div class="form-group">
-                    {{Form::label('img', 'Hero Image')}}
-                    {{Form::text('img', $hero->img, ['class' => 'form-control', 'placeholder' =>'Hero image link'])}}
-                    <img style="width: 192px; height: 108px" src="{{$hero->img}}">
-                </div>
-                <div class="form-group">
-                    {{Form::label('avatar', 'Hero Avatar')}}
-                    {{Form::text('avatar', $hero->avatar, ['class' => 'form-control', 'placeholder' =>'Hero avatar link'])}}
-                    <img style="width: 80px; height: 80px" src="{{$hero->avatar}}">
                 </div>
                 {{Form::hidden('_method','PUT')}}
                 {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}

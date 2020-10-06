@@ -66,7 +66,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => 'images/',
-            'url' => env('APP_URL').'/images',
+            'url' => env('APP_URL').'/public',
             'visibility' => 'public',
         ],
 
