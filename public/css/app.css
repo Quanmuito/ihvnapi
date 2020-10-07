@@ -10904,3 +10904,15 @@ a.text-dark:focus {
   }
 }
 
+.hero-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 20%;
+  overflow: hidden;
+}
+
+.hero-icon .show {
+  width: 100px;
+  height: 100px;
+}
+

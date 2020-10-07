@@ -3,8 +3,10 @@
     @for ($i = 0; $i < count($collection); $i++)
         @if($collection[$i]->faction === $faction)
             <a href="/heroes/{{$collection[$i]->name}}">
-                <img style="width: 60px; height: 60px" 
-                src={{ asset("images/avatar_images/".$collection[$i]->avatar)}}>
+                <img class="hero-icon" 
+                src={{ asset("images/avatar_images/".$collection[$i]->faction."/".$collection[$i]->avatar)}}
+                alt="hero_avatar"
+                >
             </a>
         @endif
     @endfor
