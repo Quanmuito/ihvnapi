@@ -5,7 +5,7 @@
             <!-- Stack the columns on mobile by making one full-width and the other half-width -->
             <div class="row">
                 <div class="col-6 col-md-4">
-                    <img class="hero-icon" src={{ asset("images/avatar_images/".$hero->faction."/".$hero->avatar)}} alt="hero_avatar">
+                    <img style="width: 100px; height: 100px; border-radius: 20%; overflow: hidden;" src={{ asset("images/avatar_images/".$hero->faction."/".$hero->avatar)}} alt="hero_avatar">
 
                     <table class="table table-srtiped">
                         <x-display-attribute key="id" :collection="$hero"/>
