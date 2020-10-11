@@ -34,7 +34,7 @@ class ImageVariables
             'warrior' => '/images/class_images/warrior.png',
             'mage' => '/images/class_images/mage.png',
             'ranger' => '/images/class_images/ranger.png',
-            'assasin' => '/images/class_images/assasin.png',
+            'assasin' => '/images/class_images/assassin.png',
             'priest' => '/images/class_images/priest.png',
         ];
     }
