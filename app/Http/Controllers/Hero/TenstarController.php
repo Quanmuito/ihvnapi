@@ -116,27 +116,4 @@ class TenstarController extends Controller
         // Return as resource
         return TenstarResource::collection($heroes);
     }
-
-    /**
-     * Delete content of the whole table.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function delete()
-    {
-        $heroes = Tenstar::all();
-        for($i=0;$i<count($heroes);$i++)
-        {
-            if($heroes[$i]->img !== "dummy_image.jpg")
-            {
-                Storage::delete('public/hero_images/'.$heroes[$i]->img);
-            }
-            if($heroes[$i]->avatar !== "dummy_avatar.png")
-            {
-                Storage::delete('public/avatar_images/'.$heroes[$i]->avatar);
-            }
-        }
-        DB::table('tenstars')->truncate();
-        return redirect('/home')->with('success', '10 stars heroes data deleted');
-    }
 }

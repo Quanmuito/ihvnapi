@@ -14,7 +14,7 @@ $factory->define(Sixstar::class, function (Faker $faker) {
 
     return [
         'faction' => $faction[random_int(0, 6)],
-        'name' => $faker->text(10),
+        'name' => $faker->name,
         'class' => $class[random_int(0, 4)],
         'skill1' => $faker->text(100),
         'skill2' => $faker->text(110),
@@ -27,8 +27,8 @@ $factory->define(Sixstar::class, function (Faker $faker) {
         'aoe' => $aoe[random_int(0, 4)],
         'cc' => $cc[random_int(0, 6)],
         'heal' => $heal[random_int(0, 3)],
-        'img' => 'dummy_image.jpg',
+        'img' => 'dummy_image.png',
         'avatar' => 'dummy_avatar.png',
-        'user_id' => random_int(1, 2)
+        'user_id' => 1
     ];
 });

@@ -1,13 +1,13 @@
 <div>
     <h4>{{strtoupper($faction)}}</h4>
-    @for ($i = 0; $i < count($collection); $i++)
-        @if($collection[$i]->faction === $faction)
-            <a href="/heroes/{{$collection[$i]->name}}">
+    @foreach ($collection as $item)
+        @if($item->faction === $faction)
+            <a href={{ route('heroes.show', $item->name) }}>
                 <img class="hero-icon" 
-                src={{ asset("images/avatar_images/".$collection[$i]->faction."/".$collection[$i]->avatar)}}
+                src={{ asset("images/avatar_images/" . $item->faction . "/" . $item->avatar) }}
                 alt="hero_avatar"
                 >
             </a>
         @endif
-    @endfor
+    @endforeach
 </div>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -74,4 +74,11 @@
         </div>
     </div>
 </div>
+@endsection --}}
+
+
+@extends('layouts.app')
+
+@section('content')
+    <h1 style="text-align: center; margin-top: 40vh">Contact site creator to get an account</h1>
 @endsection

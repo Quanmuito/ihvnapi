@@ -7,17 +7,17 @@ use Illuminate\View\Component;
 class DisplayHeroesDetail extends Component
 {
     public $star;
-    public $collection;
+    public $hero;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($star, $collection)
+    public function __construct($star, $hero)
     {
         $this->star = $star;
-        $this->collection = $collection;
+        $this->hero = $hero;
     }
 
     /**

@@ -31,7 +31,7 @@ class CreateTenstarsTable extends Migration
             $table->string('heal');
             $table->string('img');
             $table->string('avatar');
-            $table->string('user_id');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

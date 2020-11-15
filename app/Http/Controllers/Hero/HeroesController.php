@@ -31,16 +31,12 @@ class HeroesController extends Controller
     public function index()
     {
         // Get all heroes
-        $hero_5 = Fivestar::orderBy('faction','asc')->get();;
-        $hero_6 = Sixstar::all();
-        $hero_10 = Tenstar::all();
         $data = [
-            'fivestar' => $hero_5, 
-            'sixstar' => $hero_6, 
-            'tenstar' => $hero_10
+            'fivestar' => Fivestar::orderBy('faction','asc')->get(), 
+            'sixstar' => Sixstar::orderBy('faction','asc')->get(), 
+            'tenstar' => Tenstar::orderBy('faction','asc')->get()
         ];
-
-        return view('heroes.index')->with($data);
+        return view('heroes.index')->with('data', $data);
     }
 
     /**
@@ -51,22 +47,22 @@ class HeroesController extends Controller
      */
     public function show($name)
     {
-        $hero_5 = Fivestar::where('name', $name)->get();
-        $hero_6 = Sixstar::where('name', $name)->get();
-        $hero_10 = Tenstar::where('name', $name)->get();
+        $hero_5 = Fivestar::where('name', $name)->first();
+        $hero_6 = Sixstar::where('name', $name)->first();
+        $hero_10 = Tenstar::where('name', $name)->first();
 
         $data = [
             'fivestar' => $hero_5, 
-            'sixstar' => $hero_6, 
+            'sixstar' => $hero_6,
             'tenstar' => $hero_10,
         ];
 
-        if(count($hero_5) === 0 && count($hero_6) === 0 && count($hero_10) === 0)
+        if(is_null($hero_5) && is_null($hero_6) && is_null($hero_10))
         {
-            return redirect('/heroes')->with('error', "No hero data found");
+            return redirect()->route('heroes.index')->with('error', "No hero data found");
         }
         
-        return view('heroes.show')->with($data);
+        return view('heroes.show')->with('data', $data);
     }
 
 
@@ -164,7 +160,7 @@ class HeroesController extends Controller
         $hero->avatar = $avatar_toStore;
         $hero->save();
 
-        return redirect('/home')->with('success', 'Hero Data Created');
+        return redirect()->route('heroes.show', $hero->name)->with('success', 'Hero Data Created');
     }
 
     /**
@@ -177,18 +173,18 @@ class HeroesController extends Controller
     {
         switch($star) {
             case "5":
-                $hero = Fivestar::where('name', $name)->get()[0];
+                $hero = Fivestar::where('name', $name)->first();
             break;
             case "6":
-                $hero = Sixstar::where('name', $name)->get()[0];
+                $hero = Sixstar::where('name', $name)->first();
             break;
             case "10":
-                $hero = Tenstar::where('name', $name)->get()[0];
+                $hero = Tenstar::where('name', $name)->first();
             break;            
         }
 
         // Check for correct user
-        if(strval(auth()->user()->id) !== $hero->user_id){
+        if(auth()->user()->id !== $hero->user_id){
             return redirect('/heroes')->with('error', 'You are not allow to edit this page');
         }
 
@@ -232,19 +228,17 @@ class HeroesController extends Controller
         // Find whether 5 6 10 stars hero
         switch($request->input('stars')) {
             case "5":
-                $hero = Fivestar::where('name', $name)->get()[0];
+                $hero = Fivestar::where('name', $name)->first();
             break;
             case "6":
-                $hero = Sixstar::where('name', $name)->get()[0];
+                $hero = Sixstar::where('name', $name)->first();
             break;
             case "10":
-                $hero = Tenstar::where('name', $name)->get()[0];
+                $hero = Tenstar::where('name', $name)->first();
             break;            
         }
 
         // Update hero data
-
-        $hero->user_id = auth()->user()->id;
         $hero->faction = $request->input('faction');
         $hero->name = $request->input('name');
         $hero->class = $request->input('class');
@@ -263,7 +257,7 @@ class HeroesController extends Controller
         $hero->avatar = $request->input('avatar');
         $hero->save();
 
-        return redirect('/home')->with('success', 'Hero Data Updated');
+        return redirect()->route('home')->with('success', 'Hero Data Updated');
     }
 
     /**
@@ -276,27 +270,27 @@ class HeroesController extends Controller
     {
         switch($star) {
             case "5":
-                $hero = Fivestar::where('name', $name)->get()[0];
+                $hero = Fivestar::where('name', $name)->first();
             break;
             case "6":
-                $hero = Sixstar::where('name', $name)->get()[0];
+                $hero = Sixstar::where('name', $name)->first();
             break;
             case "10":
-                $hero = Tenstar::where('name', $name)->get()[0];
+                $hero = Tenstar::where('name', $name)->first();
             break;            
         }
 
         //Check if data exists before deleting
         if (!isset($hero)){
-            return redirect('/home')->with('error', 'No Hero Data Found');
+            return redirect()->route('home')->with('error', 'No Hero data Found');
         }
 
         // Check for correct user
         if(strval(auth()->user()->id) !== $hero->user_id){
-            return redirect('/home')->with('error', 'Unauthorized Page');
+            return redirect()->route('home')->with('error', 'Unauthorized Page');
         }
         
         $hero->delete();
-        return redirect('/home')->with('success', 'Data Removed');
+        return redirect()->route('home')->with('success', 'Data Removed');
     }
 }

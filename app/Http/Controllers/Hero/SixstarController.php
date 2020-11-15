@@ -116,27 +116,4 @@ class SixstarController extends Controller
         // Return as resource
         return SixstarResource::collection($heroes);
     }
-
-    /**
-     * Delete content of the whole table.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function delete()
-    {
-        $heroes = Sixstar::all();
-        for($i=0;$i<count($heroes);$i++)
-        {
-            if($heroes[$i]->img !== "dummy_image.jpg")
-            {
-                Storage::delete('public/hero_images/'.$heroes[$i]->img);
-            }
-            if($heroes[$i]->avatar !== "dummy_avatar.png")
-            {
-                Storage::delete('public/avatar_images/'.$heroes[$i]->avatar);
-            }
-        }
-        DB::table('sixstars')->truncate();
-        return redirect('/home')->with('success', '6 stars heroes data deleted');
-    }
 }
